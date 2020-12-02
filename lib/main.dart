@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-
+import 'package:charts_flutter/flutter.dart' as charts;
 // import 'package:http/http.dart' as http;
 // import 'dart:convert';
 
 import 'package:json_experiment/corona_tracker.dart';
+import 'package:json_experiment/homepage.dart';
+import 'package:json_experiment/line_cart.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  // List<charts.Series> seriesList;
+  // bool animate = false;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +20,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
-      home: CoronaTracker(),
+      //home: CoronaTracker(),
+      home: HomePage(),
+      // home: LineChat(seriesList, animate),
     );
   }
 }
