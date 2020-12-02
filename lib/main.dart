@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+// import 'package:http/http.dart' as http;
+// import 'dart:convert';
+
+import 'package:json_experiment/corona_tracker.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,126 +11,192 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.green,
+      ),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: CoronaTracker(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+// class HomePage extends StatefulWidget {
+//   @override
+//   _HomePageState createState() => _HomePageState();
+// }
 
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
+// class _HomePageState extends State<HomePage> {
+//   TextEditingController _controller = TextEditingController();
 
-  var data;
-  String country = 'India';
+//   @override
+//   void initState() {
+//     super.initState();
+//     fetchData();
+//   }
 
-  var newConfirmed;
-  var totalConfirmed;
-  var newDeaths;
-  var totalDeaths;
-  var newRecovered;
-  var totalRecovered;
-  var date;
+//   var data;
+//   String country = 'India';
 
-  fetchData() async {
-    var url = 'https://api.covid19api.com/summary';
+//   var newConfirmed;
+//   var totalConfirmed;
+//   var newDeaths;
+//   var totalDeaths;
+//   var newRecovered;
+//   var totalRecovered;
+//   var date;
+//   List jsonData;
 
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse = jsonDecode(response.body);
-      setState(() {
-        // data = jsonResponse['Global']['NewConfirmed'];
-        //data = jsonResponse['Countries'][76];
-        newConfirmed = jsonResponse['Countries'][76]['NewConfirmed'];
-        totalConfirmed = jsonResponse['Countries'][76]['TotalConfirmed'];
-        newDeaths = jsonResponse['Countries'][76]['NewDeaths'];
-        totalDeaths = jsonResponse['Countries'][76]['TotalDeaths'];
-        newRecovered = jsonResponse['Countries'][76]['NewRecovered'];
-        totalRecovered = jsonResponse['Countries'][76]['TotalRecovered'];
-        date = jsonResponse['Countries'][76]['Date'];
-      });
-      //  print(jsonResponse['Countries']);
-    }
-  }
+//   fetchAPI() async {
+//     // List<String> states = ['Other'];
+//     // print(_controller.text);
+//     // var url = 'https://api.covid19api.com/total/country/india';
+//     var url = 'https://api.covidindiatracker.com/state_data.json';
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Json Experiment'),
-      ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 10,
-            ),
-            child: Text(
-              date == null ? '' : '$date',
-              style: TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          DisplayCard(
-            label: 'New Confirmed',
-            data: newConfirmed,
-          ),
-          DisplayCard(
-            label: 'Total Confirmed Cases',
-            data: totalConfirmed,
-          ),
-          DisplayCard(
-            label: 'New Deaths',
-            data: newDeaths,
-          ),
-          DisplayCard(
-            label: 'Total Deaths',
-            data: totalDeaths,
-          ),
-          DisplayCard(
-            label: 'New Recovered',
-            data: newRecovered,
-          ),
-          DisplayCard(
-            label: 'Total Recovered',
-            data: totalRecovered,
-          ),
-        ],
-      ),
-    );
-  }
-}
+//     var response = await http.get(url);
+//     if (response.statusCode == 200) {
+//       List jsonResponse = jsonDecode(response.body);
+//       // setState(() {
+//       //   jsonData = jsonResponse;
+//       // });
+//       for (var value in jsonResponse) {
+//         // print(value['state']);
+//         // print(value['confirmed']);
+//         //  print('${value['state']}  : ${value['confirmed']}');
+//         // print('${value['state']}  : ${value['confirmed']}');
+//         //  states.add(value['state']);
+//         if (_controller.text == value['state']) {
+//           print('${_controller.text}  : ${value['confirmed']}');
+//         }
 
-class DisplayCard extends StatelessWidget {
-  DisplayCard({this.data, this.label});
+//         // for (String s in value) {
+//         //   if (_controller.text == s) {
+//         //     print(value['confirmed']);
+//         //   }
+//         // }
+//         // print(value['state']);
 
-  final data;
-  final String label;
+//         //  print(jsonResponse[value['state']]);
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Text(
-            data == null ? '$label' : '$label : $data',
-            style: TextStyle(
-              fontSize: 20,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+//       }
+//       // print(jsonResponse[0]['state']);
+//       // for (String s in states) {
+//       //   if (_controller.text == s) {
+//       //     print(s);
+//       //   }
+//       // }
+//       //  print(states);
+//     }
+//   }
+
+//   fetchData() async {
+//     var url = 'https://api.covid19api.com/summary';
+
+//     var response = await http.get(url);
+//     if (response.statusCode == 200) {
+//       var jsonResponse = jsonDecode(response.body);
+//       setState(() {
+//         // data = jsonResponse['Global']['NewConfirmed'];
+//         //data = jsonResponse['Countries'][76];
+//         newConfirmed = jsonResponse['Countries'][76]['NewConfirmed'];
+//         totalConfirmed = jsonResponse['Countries'][76]['TotalConfirmed'];
+//         newDeaths = jsonResponse['Countries'][76]['NewDeaths'];
+//         totalDeaths = jsonResponse['Countries'][76]['TotalDeaths'];
+//         newRecovered = jsonResponse['Countries'][76]['NewRecovered'];
+//         totalRecovered = jsonResponse['Countries'][76]['TotalRecovered'];
+//         date = jsonResponse['Countries'][76]['Date'];
+//       });
+//       //  print(jsonResponse['Countries']);
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: fetchAPI,
+//         child: Icon(
+//           Icons.get_app,
+//         ),
+//       ),
+//       appBar: AppBar(
+//         title: Text('Json Experiment'),
+//       ),
+//       body: ListView(
+//         children: [
+//           Padding(
+//             padding:
+//                 const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+//             child: TextField(
+//               controller: _controller,
+//               decoration: InputDecoration(
+//                 border: OutlineInputBorder(
+//                   borderRadius: BorderRadius.circular(20),
+//                 ),
+//               ),
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.symmetric(
+//               horizontal: 10,
+//               vertical: 10,
+//             ),
+//             child: Text(
+//               date == null ? '' : '$date',
+//               style: TextStyle(fontSize: 16),
+//               textAlign: TextAlign.center,
+//             ),
+//           ),
+//           DisplayCard(
+//             label: 'New Confirmed',
+//             data: newConfirmed,
+//           ),
+//           DisplayCard(
+//             label: 'Total Confirmed Cases',
+//             data: totalConfirmed,
+//           ),
+//           DisplayCard(
+//             label: 'New Deaths',
+//             data: newDeaths,
+//           ),
+//           DisplayCard(
+//             label: 'Total Deaths',
+//             data: totalDeaths,
+//           ),
+//           DisplayCard(
+//             label: 'New Recovered',
+//             data: newRecovered,
+//           ),
+//           DisplayCard(
+//             label: 'Total Recovered',
+//             data: totalRecovered,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// class DisplayCard extends StatelessWidget {
+//   DisplayCard({this.data, this.label});
+
+//   final data;
+//   final String label;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+//       child: Card(
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+//           child: Text(
+//             data == null ? '$label' : '$label : $data',
+//             style: TextStyle(
+//               fontSize: 20,
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
