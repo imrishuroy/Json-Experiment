@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:json_experiment/card_show.dart';
+import 'package:json_experiment/care.dart';
 
 final activeList = [0.0, 10000.0, 300.0, 500.0, 4000.0, 15000.0, 20800.0];
 final confirmedList = [0.0, 387.0, 5574.0, 3061.0, 5435.0, 8122.0, 14809.0];
@@ -107,6 +110,7 @@ class _HomePageState extends State<HomePage> {
     // final width = MediaQuery.of(context).size.width;
     //final height = MediaQuery.of(context).size.height;
     return Scaffold(
+      //   backgroundColor: Color(0xffa9fffd),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: fetchAPI,
       //   backgroundColor: Colors.white,
@@ -117,19 +121,19 @@ class _HomePageState extends State<HomePage> {
       // ),
       bottomNavigationBar: BottomAppBar(
         //   notchMargin: 0.0,
-        elevation: 10.0,
+        elevation: 10.9,
         //  color: Color(0xff1DB954),
-        color: Colors.white,
+        color: Color(0xfffcfefe),
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(18.0),
-              topRight: Radius.circular(18.0),
-            ),
-            border: Border.all(
-              color: Colors.black12,
-            ),
-          ),
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.only(
+          //     topLeft: Radius.circular(18.0),
+          //     topRight: Radius.circular(18.0),
+          //   ),
+          //   border: Border.all(
+          //     color: Colors.black12,
+          //   ),
+          // ),
           padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 5.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,7 +145,10 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                   icon: Image.asset('assets/world.png'), onPressed: () {}),
               IconButton(
-                  icon: Image.asset('assets/healthcare.png'), onPressed: () {}),
+                  icon: Image.asset('assets/healthcare.png'),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(Care.routeName);
+                  }),
             ],
           ),
         ),
@@ -163,14 +170,16 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 30.0,
-                        vertical: 20.0,
+                        horizontal: 26.0,
+                        vertical: 10.0,
                       ),
                       child: Text(
                         'India',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w600,
+                        style: GoogleFonts.harmattan(
+                          textStyle: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         textAlign: TextAlign.start,
                       ),
@@ -197,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                             child: TextField(
                               controller: _controller,
                               decoration: InputDecoration(
-                                hintText: 'Search State of District',
+                                hintText: 'Search State or District',
                                 alignLabelWithHint: true,
                                 hoverColor: Colors.green,
                                 focusColor: Colors.green,
@@ -259,87 +268,6 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CardShow extends StatelessWidget {
-  final int data;
-  final String label;
-  final Color color;
-  final List<double> dataList;
-
-  CardShow({
-    Key key,
-    this.data,
-    this.label,
-    this.dataList,
-    this.color,
-  });
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    // final height = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        elevation: 10.0,
-        shadowColor: Colors.black87,
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: width * 0.1 - 15,
-                vertical: 15,
-              ),
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: width * 0.1 - 20,
-                vertical: 3,
-              ),
-              child: Text(
-                data == null ? '' : '$data',
-                style: TextStyle(
-                    fontSize: 23.0, fontWeight: FontWeight.w900, color: color),
-              ),
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Container(
-              height: 20.0,
-              width: 100.0,
-              child: Sparkline(
-                data: dataList,
-                lineColor: color,
-                pointsMode: PointsMode.all,
-                pointColor: Colors.black,
-                // fillMode: FillMode.below,
-                // fillGradient: LinearGradient(
-                //   begin: Alignment.topCenter,
-                //   end: Alignment.bottomCenter,
-                //   colors: [
-                //     Colors.red[800],
-                //     Colors.red[200],
-                //   ],
-                // ),
-              ),
-            ),
-            SizedBox(height: 30.0)
           ],
         ),
       ),

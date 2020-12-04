@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:json_experiment/care.dart';
+//import 'package:charts_flutter/flutter.dart' as charts;
 // import 'package:http/http.dart' as http;
 // import 'dart:convert';
 
-import 'package:json_experiment/corona_tracker.dart';
+//import 'package:json_experiment/corona_tracker.dart';
 import 'package:json_experiment/homepage.dart';
-import 'package:json_experiment/line_cart.dart';
+//import 'package:json_experiment/line_cart.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //home: CoronaTracker(),
       home: HomePage(),
+      routes: {
+        Care.routeName: (ctx) => Care(),
+      },
       // home: LineChat(seriesList, animate),
     );
   }
