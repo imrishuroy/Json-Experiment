@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_sparkline/flutter_sparkline.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:json_experiment/card_show.dart';
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
     if (response.statusCode == 200) {
       List jsonResponse = jsonDecode(response.body);
 
-      print('last${jsonResponse.last['Active']}');
+      //    print('last${jsonResponse.last['Active']}');
 
       setState(() {
         activeCase = jsonResponse.last['Active'];
@@ -119,82 +119,135 @@ class _HomePageState extends State<HomePage> {
       //     color: Colors.black,
       //   ),
       // ),
-      bottomNavigationBar: BottomAppBar(
-        //   notchMargin: 0.0,
-        elevation: 10.9,
-        //  color: Color(0xff1DB954),
-        color: Color(0xfffcfefe),
-        child: Container(
-          // decoration: BoxDecoration(
-          //   borderRadius: BorderRadius.only(
-          //     topLeft: Radius.circular(18.0),
-          //     topRight: Radius.circular(18.0),
-          //   ),
-          //   border: Border.all(
-          //     color: Colors.black12,
-          //   ),
-          // ),
-          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                  icon: Image.asset('assets/india.png'), onPressed: () {}),
-              IconButton(
-                  icon: Image.asset('assets/trend.png'), onPressed: () {}),
-              IconButton(
-                  icon: Image.asset('assets/world.png'), onPressed: () {}),
-              IconButton(
-                  icon: Image.asset('assets/healthcare.png'),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(Care.routeName);
-                  }),
-            ],
-          ),
-        ),
-      ),
+      // bottomNavigationBar: BottomAppBar(
+      //   //   notchMargin: 0.0,
+      //   elevation: 10.9,
+      //   //  color: Color(0xff1DB954),
+      //   color: Color(0xfffcfefe),
+      //   child: Container(
+      //     // decoration: BoxDecoration(
+      //     //   borderRadius: BorderRadius.only(
+      //     //     topLeft: Radius.circular(18.0),
+      //     //     topRight: Radius.circular(18.0),
+      //     //   ),
+      //     //   border: Border.all(
+      //     //     color: Colors.black12,
+      //     //   ),
+      //     // ),
+      //     padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 5.0),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //       children: [
+      //         IconButton(
+      //             icon: Image.asset('assets/india.png'), onPressed: () {}),
+      //         // IconButton(
+      //         //     icon: Image.asset('assets/trend.png'), onPressed: () {}),
+      //         IconButton(
+      //             icon: Image.asset('assets/world.png'), onPressed: () {}),
+      //         IconButton(
+      //             icon: Image.asset('assets/healthcare.png'),
+      //             onPressed: () {
+      //               Navigator.of(context).pushNamed(Care.routeName);
+      //             }),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: 250.0,
               width: double.infinity,
               child: Image.asset(
-                'assets/original.jpg',
+                'assets/cover.png',
+                //fit: BoxFit.cover,
                 fit: BoxFit.cover,
               ),
             ),
             Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 26.0,
-                        vertical: 10.0,
+                    Container(
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 26.0,
+                              vertical: 10.0,
+                            ),
+                            child: Text(
+                              'India',
+                              style: GoogleFonts.harmattan(
+                                textStyle: TextStyle(
+                                  fontSize: 40.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/flag.png'),
+                              ),
+                            ),
+                            height: 80,
+                            width: 40,
+                          ),
+                        ],
                       ),
-                      child: Text(
-                        'India',
-                        style: GoogleFonts.harmattan(
-                          textStyle: TextStyle(
-                            fontSize: 40.0,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, Care.routeName);
+                      },
+                      splashColor: Color(0xffd2f6c5),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 30.0),
+                        child: Text(
+                          'More',
+                          style: GoogleFonts.harmattan(
+                            fontSize: 30.0,
                             fontWeight: FontWeight.w600,
+                            color: Colors.green,
                           ),
                         ),
-                        textAlign: TextAlign.start,
                       ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/flag.png'),
-                        ),
-                      ),
-                      height: 80,
-                      width: 40,
-                    ),
+                    )
                   ],
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 23.0,
+                    vertical: 10.0,
+                  ),
+                  child: Text(
+                    'COVID-19',
+                    //textAlign: TextAlign.start,
+                    style: GoogleFonts.harmattan(
+                      textStyle: TextStyle(
+                        fontSize: 30.0,
+                        letterSpacing: 1.5,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 23.0),
+                  child: Text(
+                    'Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus.\n\nMost people infected with the COVID-19 virus will experience mild to moderate respiratory illness and recover without requiring special treatment.',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 30.0),
                 Column(
                   children: [
                     Row(

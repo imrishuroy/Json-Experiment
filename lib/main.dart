@@ -6,6 +6,8 @@ import 'package:json_experiment/care.dart';
 
 //import 'package:json_experiment/corona_tracker.dart';
 import 'package:json_experiment/homepage.dart';
+import 'package:json_experiment/splashscreen.dart';
+
 //import 'package:json_experiment/line_cart.dart';
 
 void main() => runApp(MyApp());
@@ -22,7 +24,8 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       //home: CoronaTracker(),
-      home: HomePage(),
+      //  home: HomePage(),
+      home: MySplashScreen(),
       routes: {
         Care.routeName: (ctx) => Care(),
       },

@@ -1,4 +1,4 @@
-package com.example.json_experiment
+package com.sixteenbrains.json_experiment
 
 import io.flutter.embedding.android.FlutterActivity
 
